@@ -1,0 +1,78 @@
+Reporte de resultados:
+
+Instrucciones detalladas de cómo compilar el programa. Si usaron un Makefile añádanlo. 
+    Para compilar estos programas, puedes hay que usar el compilador de C++ (g++):
+
+        g++ -o monteConMutexFuera monteConMutexFuera.cpp
+        g++ -o monteConMutexDentro monteConMutexDentro.cpp
+        g++ -o monteSinMutex monteSinMutex.cpp
+        g++ -o monteRetorno monteRetorno.cpp
+    
+    El programa monteAtomico.c está escrito en C, por lo que utilizamos el compilador de C (gcc) y también incluimos la bandera -lm para enlazar la biblioteca matemática.
+      
+        gcc -o monteAtomico monteAtomico.c -lm
+
+3. Prueben su programa usando Helgrind o ThreadSanitizer y describan los problemas de concurrencia detectados,
+porqué sucedieron y cómo los corrigieron. Corríjanlos y vuelvan a probar.
+• Por supuesto, NO corrijan los errores en 1.2.1.
+
+R/ ThreadSanitizer no mostro ningun error mas que en 1.2.1.
+
+4. Realicen pruebas con diferentes cantidades de puntos y de hilos. Muestren los resultados obtenidos y el tiempo
+de ejecución en cada caso. Pueden usar el comando time para medir el tiempo de ejecución (por ejemplo, time
+./pi 100000000 4).
+
+| Programa             | Puntos    | Hilos | Número Pi | Tiempo Real (s) |
+|----------------------|-----------|-------|-----------|-----------------|
+| monteConMutexFuera   | 100,000   | 1     | 3.137000  | 0.039           |
+| monteConMutexFuera   | 100,000   | 2     | 3.138120  | 0.015           |
+| monteConMutexFuera   | 1,000,000 | 4     | 3.139976  | 0.046           |
+| monteConMutexFuera   | 10,000,000| 8     | 3.141042  | 0.295           |
+| monteConMutexDentro  | 100,000   | 1     | 3.142800  | 0.042           |
+| monteConMutexDentro  | 100,000   | 2     | 3.145560  | 0.069           |
+| monteConMutexDentro  | 1,000,000 | 4     | 3.142588  | 0.953           |
+| monteConMutexDentro  | 10,000,000| 8     | 3.141292  | 23.624          |
+| monteSinMutex        | 100,000   | 1     | 3.151360  | 0.012           |
+| monteSinMutex        | 100,000   | 2     | 2.043480  | 0.005           |
+| monteSinMutex        | 1,000,000 | 4     | 1.136400  | 0.015           |
+| monteSinMutex        | 10,000,000| 8     | 0.475098  | 0.074           |
+| monteRetorno         | 100,000   | 1     | 3.147960  | 0.021           |
+| monteRetorno         | 100,000   | 2     | 3.154000  | 0.015           |
+| monteRetorno         | 1,000,000 | 4     | 3.145092  | 0.040           |
+| monteRetorno         | 10,000,000| 8     | 3.141331  | 0.293           |
+| monteAtomico         | 100,000   | 1     | 3.126240  | 0.054           |
+| monteAtomico         | 100,000   | 2     | 3.132440  | 0.030           |
+| monteAtomico         | 1,000,000 | 4     | 3.138096  | 0.279           |
+| monteAtomico         | 10,000,000| 8     | 3.140478  | 4.639           |
+
+
+5. ¿Cual implementación es más rápida? Consideren ejecutar su programa varias veces con diferentes cantidades
+    1. Es recomendable que cierren todos los demás programas a la hora de realizar benchmarks, ya que esto
+    puede afectar los resultados.
+    2. Los números exactos dependen de su máquina. Asegúrense de usar una cantidad de puntos alta para que
+    todos los programas duren al menos unos segundos. En la cantidad de hilos, prueben con menos y más
+    hilos que la cantidad de núcleos de su procesador. Por ejemplo:
+    1. Puntos: 1000000000, Hilos: 1
+    2. Puntos: 1000000000, Hilos: 4
+    3. Puntos: 1000000000, Hilos: 8
+
+
+| Programa             | Puntos   | Hilos | Tiempo Real (s) |
+|----------------------|----------|-------|-----------------|
+| monteConMutexFuera   | 1,000,000,000 | 1     | 120.336         |
+| monteConMutexFuera   | 1,000,000,000 | 4     | 49.749          |
+| monteConMutexFuera   | 1,000,000,000 | 8     | 41.920          |
+| monteConMutexDentro  | 1,000,000,000 | 1     | 354.585         |
+| monteConMutexDentro  | 1,000,000,000 | 4     | 1346.946        |
+| monteConMutexDentro  | 1,000,000,000 | 8     | No completado   |
+| monteRetorno         | 1,000,000,000 | 1     | 118.548         |
+| monteRetorno         | 1,000,000,000 | 4     | 48.621          |
+| monteRetorno         | 1,000,000,000 | 8     | 40.625          |
+| monteAtomico         | 1,000,000,000 | 1     | 278.000         |
+| monteAtomico         | 1,000,000,000 | 4     | 378.004         |
+| monteAtomico         | 1,000,000,000 | 8     | 630.361         |
+| monteSinMutex        | 1,000,000,000 | 1     | 13.945          |
+| monteSinMutex        | 1,000,000,000 | 4     | 9.365           |
+| monteSinMutex        | 1,000,000,000 | 8     | No completado   |
+
+La implementación con mutex fuera del ciclo es la más rápida, seguida por la implementación sin mutex (significativamente menos confiable). Las implementaciones con mutex dentro del ciclo y la implementación atómica parecen ser más lentas en comparación. 
