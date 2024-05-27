@@ -68,7 +68,3 @@ graph TD;
 - No se encontraron problemas significativos en la última versión del código.
 
 ```
-
-Este README contiene toda la información necesaria sobre la compilación, ejecución y diseño del programa, junto con los problemas encontrados y sus soluciones. El diagrama Mermaid proporciona una representación visual del flujo del programa y puede ser renderizado correctamente en GitHub.
-
-Asegúrate de guardar este contenido en un archivo llamado `README.md` en el repositorio de tu proyecto. También es recomendable utilizar `clang-format` para asegurarte de que tu código esté bien formateado antes de cada commit.
