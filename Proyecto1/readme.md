@@ -19,12 +19,7 @@ Para correr el proyecto y contar las palabras en un archivo grande, puedes usar:
 
 Para probar el programa con `wordcount.go`, puedes usar:
 ```bash
-go run wordcount.go -mode generator -seed 12 -words 1000 -size 1000000 | ./contador | go run wordcount.go -mode validator -seed 12 -words 1000 -size 1000000
-```
-
-Para probar el programa con Valgrind y verificar si hay fugas de memoria:
-```bash
-go run wordcount.go -mode generator -seed 12 -words 1000 -size 1000000 | valgrind ./contador | go run wordcount.go -mode validator -seed 12 -words 1000 -size 1000000
+go run wordcount.go -mode generator -seed 1234 -words 10000 -size 100000000 | ./contador | go run wordcount.go -mode validator -seed 1234 -words 10000 -size 100000000
 ```
 
 ## Diseño de su programa
