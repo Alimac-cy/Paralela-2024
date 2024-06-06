@@ -1,0 +1,27 @@
+1. Los hilos se distinguen de los procesos en que comparten el espacio de direcciones del proceso que los creó. ¡No son
+copias! Esto significa que los hilos pueden acceder a las mismas variables globales y a las mismas variables locales de
+la función que los creó. Para crear un hilo en C, se utiliza la función pthread_create. A continuación se muestra
+un ejemplo de cómo crear un hilo que imprime un mensaje en la consola.
+Corran el programa y reporten el resultado.
+
+R/ el código imprime el valor del argumento 42 en la consola.
+
+2. Compilen el programa anterior y ejecútenlo varias veces. ¿Qué observan? ¿Por qué ocurre esto?
+
+R/ En cada ejecucion del programa el global after es diferente.
+
+3. Atomicidad de las operaciones. Compilen y ejecuten el programa varias veces. Reporten ¿Qué observan? ¿Por qué ocurre esto?
+
+R/ Ahora los resultados del programa mas consistentes, aunque aun falla. Ocurre porque hay menos posibilidades de que lean y escriban simultaneamente los hilos
+
+3.2. Compilen y ejecuten el programa varias veces. Reporten ¿Qué observan? ¿Se solucionó el problema?
+
+R/ Si, ya son completamente consistentes los resultados.
+
+3.3. Compilen y ejecuten el programa varias veces. Reporten los resultados. Descomenten la línea printf("Thread
+%ld\n", pthread_self()) y ejecuten el programa varias veces. ¿Qué observan?
+
+R/ Con mutex tampoco da errores en los resultado. Cuando descomento la linea mustra todos los hilos con sus identificadores.
+
+4. El hilo toma los datos de la estructura, los suma y una vez termina, el programa, muestra el resultado en consola
+

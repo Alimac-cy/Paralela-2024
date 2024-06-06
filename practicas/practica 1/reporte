@@ -1,0 +1,90 @@
+1. Compilen el programa usando el comando gcc -o practica-01-fork-01 practica-01-fork-01.c y ejecútenlo
+con ./practica-01-fork-01. Ejecuten el programa varias veces y observen el resultado. Reporten:
+1. ¿Se imprimen en el orden esperado?
+R/ imprime primero el padre y despues el hijo
+2. ¿Siempre se imprimen en el mismo orden?
+R/ si
+3. ¿A sus compañeros les sucede lo mismo?
+R/ si
+
+2. Introducir trabajo pesado
+1. ¿Se imprimen en el orden esperado?
+R/ se imprimen igual que antes
+2. ¿Cómo imprime cada proceso?
+R/ tarda un rato antes de mostrar el hijo
+3. ¿Se ejecuta el proceso hijo antes o después del proceso padre?
+R/ despues
+
+3. Esperar al hijo
+En el programa anterior, el proceso padre no espera al proceso hijo antes de terminar. Copien el programa y
+modifíquenlo para que el proceso padre espere al proceso hijo antes de terminar. Para esto, usen la llamada al
+sistema, Reporten:
+1. ¿Se imprimen en el orden esperado?
+R/ ahora si muestra primero el hijo que el padre
+2. ¿Cómo imprime cada proceso?
+R/ ahora, como el hijo tarda 5 segundos, tarda en empezar  
+3. ¿Se ejecuta el proceso hijo antes o después del proceso padre?
+R/ antes
+
+4. Crear varios procesos
+1. ¿Cuántos procesos hijos se crean?
+R/ 5
+2. ¿En qué orden se crean los procesos hijos?
+R/ en orden ascedente 
+3. ¿En qué orden se ejecutan los procesos hijos? ¿Siempre es el mismo orden?
+R/ se ejecuntan en cuanto se hace un fork se muestra el hijo
+4. ¿Cómo sabe el proceso hijo cual es su número?
+R/ muestra la iteracion en que se hizo el fork
+
+5. Esperar a todos los hijos
+En el programa anterior, el proceso padre no espera a que todos los procesos hijos terminen antes de terminar.
+Copien el programa y modifíquenlo para que el proceso padre espere a que todos los procesos hijos terminen antes de
+terminar. Para esto, usen un ciclo for para esperar a cada proceso hijo. Usen la llamada al sistema waitpid(pid_t
+pid, int *status, int options) para esperar a un proceso hijo. Reporten
+1. ¿Ahora se imprimen en el orden esperado?
+R/ si
+2. ¿El proceso padre espera a que todos los procesos hijos terminen antes de terminar?
+R/ si
+
+
+6. Copias de la memoria durante fork
+En el siguiente ejercicio vamos a explorar cómo se comportan las variables en un proceso padre y un proceso hijo.
+Copien el siguiente programa y ejecútenlo varias veces. Reporten:
+1. ¿Qué valor tiene la variable msg al final del programa?
+R/ Im the parent process!!!
+2. ¿Por qué el valor de msg cambia o no?
+R/ Porque la copia de la variable se modifica en cada proceso
+3. ¿Porqué los hijos pueden imprimir el mensaje correcto?
+R/ Se sobreescribe el msg original
+4. Al final, qué valor tiene la variable msg? ¿Porqué?
+R/ Tiene el primer mensaje porque se guardo en el padre, cuando se completaron los hijos mostro el padre
+5. ¿Qué pasó con la asignación de memoria de msg realizada en los hijos?
+R/ Se sobreescribio la copia en la asignacion de memoria de cada hijo
+
+7. ¿Y los punteros?
+En el ejercicio anterior, vimos que cada proceso tiene una copia de su memoria. Esta copia se realiza al momento de
+llamar a fork. ¿Pero las direcciones de memoria son las mismas? Copien el siguiente programa y ejecútenlo varias
+veces. Reporten:
+1. ¿La dirección de memoria de msg es la misma en el proceso padre y en los procesos hijos?
+R/ Si
+2. ¿Porqué?
+R/ Porque son la misma direccion pero en diferentes espacios de memoria
+
+8. ¿Los procesos gastan mucha memoria?
+En teoría, cada proceso tiene su propia memoria. Pero, ¿cuánta memoria se gasta al crear un proceso hijo? Copien
+el siguiente programa. Abran una instancia de System Monitor o Task Manager y ejecuten el programa. Reporten:
+1. ¿Cuánta memoria gasta el programa (incluyendo cada proceso)?
+R/ Segun el administrador 0.0 cada proceso
+2. ¿Estamos gastando 100GB de memoria o no?
+R/ no
+
+9. ¿Y si realmente estamos usando esa memoria?
+ Reporten:
+1. ¿Cuánta memoria gasta el programa (incluyendo cada proceso)?
+R/ 1.1 Gb cada proceso y son 5
+2. ¿Ahora sí se gasta más memoria?
+R/ si
+3. ¿Porqué?
+R/ estamos asignando y llenando la memoria en cada proceso hijo
+4. ¿Colgó la computadora? ¿Porqué?
+R/ No, porque no excede la cantidad disponible de RAM
