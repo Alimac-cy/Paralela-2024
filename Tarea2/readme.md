@@ -11,11 +11,11 @@ El programa original sin modificaciones está disponible en `original.cpp`.
 
 #### 1.2.1. Cola Segura para Concurrencia
 
-El programa modificado para usar una cola segura para concurrencia está disponible en `queue.cpp`.
+El programa modificado para usar una cola segura para concurrencia está disponible en `cola.cpp`.
 
 #### 1.2.2. Message Queue
 
-El programa modificado para usar message queue está disponible en `msgqueue.cpp`.
+El programa modificado para usar message queue está disponible en `queue.cpp`.
 
 #### 1.2.3. Pipe
 
