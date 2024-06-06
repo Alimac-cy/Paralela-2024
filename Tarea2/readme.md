@@ -1,6 +1,4 @@
-Aquí tienes el reporte en formato Markdown, listo para copiar y pegar:
 
-```md
 # Reporte de Resultados
 
 ## 1. Implementación del Programa en C
