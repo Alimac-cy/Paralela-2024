@@ -5,25 +5,25 @@
 
 ### 1.1. Programa Original
 
-El programa original sin modificaciones está disponible en `original.cpp`.
+El programa original sin modificaciones está en `original.cpp`.
 
 ### 1.2. Programa Modificado para el Cálculo de π en Paralelo
 
 #### 1.2.1. Cola Segura para Concurrencia
 
-El programa modificado para usar una cola segura para concurrencia está disponible en `cola.cpp`.
+El programa modificado para usar una cola segura para concurrencia está en `cola.cpp`.
 
 #### 1.2.2. Message Queue
 
-El programa modificado para usar message queue está disponible en `queue.cpp`.
+El programa modificado para usar message queue está en `queue.cpp`.
 
 #### 1.2.3. Pipe
 
-El programa modificado para usar pipe está disponible en `pipe.cpp`.
+El programa modificado para usar pipe está en `pipe.cpp`.
 
 #### 1.2.4. Boost.Fiber
 
-El programa modificado para usar Boost.Fiber está disponible en `boost_fiber.cpp`.
+El programa modificado para usar Boost.Fiber está en `boost_fiber.cpp`.
 
 ## 2. Instrucciones de Compilación
 
