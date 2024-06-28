@@ -111,7 +111,7 @@ void calcular_pagerank()
     int num_hilos = thread::hardware_concurrency();              // Número de hilos disponibles
     int chunk_size = (nodos.size() + num_hilos - 1) / num_hilos; // distribucion equitativa
 
-    for (int i = 0; i < 100; ++i) // Hasta 100 iteraciones
+    while (true) // Bucle hasta converger
     {
         vector<future<void>> futuros;
         for (int j = 0; j < num_hilos; ++j)

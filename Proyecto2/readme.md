@@ -40,8 +40,7 @@ ejemplo:
 ### d. Explicación detallada de los límites de su proyecto
 
 1. **Tamaño del Grafo**: El tamaño máximo del grafo está limitado por la memoria disponible en el sistema.
-2. **Número de Iteraciones**: El número máximo de iteraciones para el cálculo del PageRank está fijado en 100.
-3. **Precisión**: La precisión de los valores de PageRank se ajusta a 6 decimales.
+2. **Precisión**: La precisión de los valores de PageRank se ajusta a 6 decimales.
 
 ### e. Explicación detallada de los problemas conocidos con su proyecto
 
