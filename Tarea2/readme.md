@@ -112,9 +112,3 @@ valgrind ./ejercicio4 100000000 4
 | ejercicio3   | 100000000       | 16             | 0.360                   | 3.140956    |
 | ejercicio4   | 100000000       | 16             | 0.296                   | 3.141532    |
 
-### Observaciones:
-
-1. **Programa Original**: El tiempo de ejecución es menor, pero el valor de π no es preciso debido a la falta de paralelismo.
-2. **ejercicio1y2 (Cola para Concurrencia y Message Queue)**: El valor de π es preciso y el tiempo de ejecución aumenta ligeramente debido a la sincronización.
-3. **ejercicio3 (Pipe)**: El valor de π es preciso y el tiempo de ejecución es similar al de `ejercicio1y2`.
-4. **ejercicio4 (Boost.Fiber)**: El valor de π es preciso y el tiempo de ejecución es comparable al de los otros métodos, demostrando que Boost.Fiber es una alternativa viable para la programación concurrente.
