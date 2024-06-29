@@ -1,29 +1,28 @@
-
 # Reporte de Resultados
 
 ## 1. Implementación del Programa en C
 
 ### 1.1. Programa Original
 
-El programa original sin modificaciones está en `original.cpp`.
+El programa original sin modificaciones está en `original.c`.
 
 ### 1.2. Programa Modificado para el Cálculo de π en Paralelo
 
 #### 1.2.1. Cola Segura para Concurrencia
 
-El programa modificado para usar una cola segura para concurrencia está en `cola.cpp`.
+El programa modificado para usar una cola segura para concurrencia está en `ejercicio1y2.c`.
 
 #### 1.2.2. Message Queue
 
-El programa modificado para usar message queue está en `queue.cpp`.
+El programa modificado para usar message queue está en `ejercicio1y2.c`.
 
 #### 1.2.3. Pipe
 
-El programa modificado para usar pipe está en `pipe.cpp`.
+El programa modificado para usar pipe está en `ejercicio3.c`.
 
 #### 1.2.4. Boost.Fiber
 
-El programa modificado para usar Boost.Fiber está en `boost_fiber.cpp`.
+El programa modificado para usar Boost.Fiber está en `ejercicio4.c`.
 
 ## 2. Instrucciones de Compilación
 
@@ -32,43 +31,65 @@ Para compilar los programas, puedes usar los siguientes comandos:
 ### Compilar el Programa Original
 
 ```sh
-gcc -o original original.cpp -pthread -lm
+gcc -o original original.c -lm -lpthread
 ```
 
-### Compilar el Programa con Cola para Concurrencia
+### Compilar el Programa con Cola para Concurrencia y Message Queue
 
 ```sh
-gcc -o cola cola.cpp -pthread -lm
-```
-
-### Compilar el Programa con Message Queue
-
-```sh
-gcc -o queue queue.cpp -pthread -lm
+gcc -o ejercicio1y2 ejercicio1y2.c -lm -lpthread
 ```
 
 ### Compilar el Programa con Pipe
 
 ```sh
-gcc -o pipe pipe.cpp -pthread -lm
+gcc -o ejercicio3 ejercicio3.c -lm -lpthread
 ```
 
 ### Compilar el Programa con Boost.Fiber
 
 ```sh
-g++ -o boost_fiber boost.Fiber.cpp -lboost_system -lboost_thread -lboost_context -lboost_fiber -lpthread -std=c++11
+g++ -o ejercicio4 ejercicio4.c -lboost_system -lboost_fiber -lpthread
 ```
 
-### Resultados de las Pruebas de Concurrencia
+## 3. Pruebas de Concurrencia
 
-#### Problemas en Queue.cpp y Pipe.cpp
+### Problemas en `ejercicio1y2.c` y `ejercicio3.c`
 
-##### Problema:
-Se detectaron problemas de carrera de datos al acceder a la variable points_inside_circle desde múltiples hilos.
+#### Problema:
+Se detectaron problemas de datos sin inicializar en `ejercicio1y2.c` al enviar mensajes a la cola de mensajes.
 
-##### Solución:
-Se protegió el acceso a la variable points_inside_circle utilizando un mutex para asegurar que solo un hilo pueda acceder a la variable a la vez.
+### Resultados de Valgrind
 
+#### Programa Original
+
+```sh
+valgrind ./original 100000000 4
+```
+
+#### Ejercicio 1 y 2
+
+```sh
+valgrind ./ejercicio1y2 100000000 4
+```
+
+Resultado:
+
+```plaintext
+==183798== Syscall param msgsnd(msgp->mtext) points to uninitialised byte(s)
+```
+
+#### Ejercicio 3
+
+```sh
+valgrind ./ejercicio3 100000000 4
+```
+
+#### Ejercicio 4
+
+```sh
+valgrind ./ejercicio4 100000000 4
+```
 
 ## 4. Pruebas de Desempeño
 
@@ -78,18 +99,22 @@ Se protegió el acceso a la variable points_inside_circle utilizando un mutex pa
 
 | Programa     | Total de Puntos | Total de Hilos | Tiempo de Ejecución (s) | Valor de Pi |
 |--------------|-----------------|----------------|-------------------------|-------------|
-| original     | 1000000         | 4              | 0.017                   | 0.785852    |
-| cola         | 1000000         | 4              | 0.005                   | 3.14486     |
-| pipe         | 1000000         | 4              | 0.010                   | 3.141424    |
-| queue        | 1000000         | 4              | 0.008                   | 3.138704    |
-| boost_fiber  | 1000000         | 4              | 0.106                   | 3.13753     |
-| original     | 1000000         | 8              | 0.010                   | 0.392044    |
-| cola         | 1000000         | 8              | 0.011                   | 3.14429     |
-| pipe         | 1000000         | 8              | 0.007                   | 3.139680    |
-| queue        | 1000000         | 8              | 0.006                   | 3.142720    |
-| boost_fiber  | 1000000         | 8              | 0.121                   | 3.14387     |
-| original     | 1000000         | 16             | 0.003                   | 0.197064    |
-| cola         | 1000000         | 16             | 0.008                   | 3.144       |
-| pipe         | 1000000         | 16             | 0.007                   | 3.147136    |
-| queue        | 1000000         | 16             | 0.008                   | 3.124672    |
-| boost_fiber  | 1000000         | 16             | 0.106                   | 3.14347     |
+| original     | 100000000       | 4              | 0.366                   | 0.785424    |
+| ejercicio1y2 | 100000000       | 4              | 0.548                   | 3.141618    |
+| ejercicio3   | 100000000       | 4              | 0.518                   | 3.141655    |
+| ejercicio4   | 100000000       | 4              | 0.558                   | 3.141922    |
+| original     | 100000000       | 8              | 0.180                   | 0.392771    |
+| ejercicio1y2 | 100000000       | 8              | 0.330                   | 3.141751    |
+| ejercicio3   | 100000000       | 8              | 0.359                   | 3.141040    |
+| ejercicio4   | 100000000       | 8              | 0.358                   | 3.141597    |
+| original     | 100000000       | 16             | 0.099                   | 0.196394    |
+| ejercicio1y2 | 100000000       | 16             | 0.355                   | 3.141842    |
+| ejercicio3   | 100000000       | 16             | 0.360                   | 3.140956    |
+| ejercicio4   | 100000000       | 16             | 0.296                   | 3.141532    |
+
+### Observaciones:
+
+1. **Programa Original**: El tiempo de ejecución es menor, pero el valor de π no es preciso debido a la falta de paralelismo.
+2. **ejercicio1y2 (Cola para Concurrencia y Message Queue)**: El valor de π es preciso y el tiempo de ejecución aumenta ligeramente debido a la sincronización.
+3. **ejercicio3 (Pipe)**: El valor de π es preciso y el tiempo de ejecución es similar al de `ejercicio1y2`.
+4. **ejercicio4 (Boost.Fiber)**: El valor de π es preciso y el tiempo de ejecución es comparable al de los otros métodos, demostrando que Boost.Fiber es una alternativa viable para la programación concurrente.
